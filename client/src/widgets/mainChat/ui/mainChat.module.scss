@@ -1,0 +1,16 @@
+.mainChat {
+    background: url("https://www.electronic-sirens.com/ru/wp-content/uploads/sites/8/2021/09/Yest-li-zvuk-v-kosmose-.jpg") no-repeat;
+    width: 100%;
+    padding: 20px;
+    height: 100vh;
+    overflow-y: scroll
+}
+
+.mainChat::-webkit-scrollbar {
+    width: 0px;
+}
+
+.userMessage {
+    display: flex;
+    justify-content: end;
+}

@@ -22,10 +22,13 @@
 
     "baseUrl": "src",
     "paths": {
+      "assets/*": ["assets/*"],
+      "entities/*": ["entities/*"],
       "app/*": ["app/*"],
       "pages/*": ["pages/*"],
+      "widgets/*": ["widgets/*"],
+      "features/*": ["features/*"],
       "shared/*": ["shared/*"],
-      "widgets/*": ["widgets/*"]
     },
   },
   "include": ["src"]

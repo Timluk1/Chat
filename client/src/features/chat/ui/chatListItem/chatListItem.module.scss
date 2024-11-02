@@ -1,0 +1,26 @@
+.chatListItem {
+    display: flex;
+    align-items: center;
+    width: 100%; 
+    border-bottom: 1px solid var(--text-secondary-color);
+    padding-bottom: 13px;
+    margin-bottom: 26px;
+    cursor: pointer;
+    &__image {
+        width: 48px;
+        height: 48px;
+        margin-right: 20px;
+    }
+    &__title {
+        color: var(--text-primary-color);
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 24px;
+    }
+    &__text {
+        color: var(--text-secondary-color);
+        font-weight: 400;
+        font-size: 14px;
+    }
+}
+

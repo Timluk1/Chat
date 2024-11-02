@@ -1,0 +1,25 @@
+.chatMessage {
+    display: inline-block;
+    margin-bottom: 30px;
+    padding: 10px;
+    &__text {
+        color: var(--text-primary-color);
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
+    }
+    &User {
+        background-color: var(--background-quinary-color);
+        border-radius: 16px 16px 0px 16px;
+        &__time {
+            color: var(--text-primary-color);
+        }
+    }
+    &Opponent {
+        background-color: var(--background-primary-color);
+        border-radius: 16px 16px 16px 0px;
+        &__time {
+            color: var(--text-quaternary-color)
+        }
+    }
+}

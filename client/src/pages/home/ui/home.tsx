@@ -1,3 +1,14 @@
+import { Sidebar } from "widgets/sidebar";
+import { MainChat } from "widgets/mainChat";
+import { HomeContainer } from "shared/ui/homeContainer";
+
 export function Home() {
-    return <div>home</div>;
+    return (
+        <> 
+            <HomeContainer> 
+                <Sidebar />
+                <MainChat />
+            </HomeContainer>
+        </>
+    );
 }

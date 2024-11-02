@@ -12,10 +12,13 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      assets: '/src/assets',
       app: '/src/app',
       pages: '/src/pages',
-      shared: '/src/shared',
       widgets: '/src/widgets',
+      features: '/src/features',
+      entites: '/src/entities',
+      shared: '/src/shared',
     },
   }
 })
