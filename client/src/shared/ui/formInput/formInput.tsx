@@ -1,19 +1,29 @@
+import { UseFormRegister, RegisterOptions } from "react-hook-form";
 import styles from "./formInput.module.scss";
 
+export interface IFormInputs {
+    email: string;
+    password: string;
+    confirmPassword: string;
+};
+
 interface FormInputProps {
-    type: string;
-    placeholder: string;
-    isError: boolean;
-    errorText?: string;
-    // Добавим пропс ref для передачи register
-    inputRef?: React.Ref<HTMLInputElement>;
+    // for react-hook-form
+    register: UseFormRegister<IFormInputs>
+    name: "email" | "password" | "confirmPassword"
+    // for input element
+    type: string
+    placeholder: string
+    isError: boolean
+    errorText?: string
+    rules?: RegisterOptions<IFormInputs>;
 }
 
-export function FormInput({ type, placeholder, isError, errorText, inputRef }: FormInputProps) {
+export function FormInput({ register, name, type, placeholder, isError, errorText, rules  }: FormInputProps) {
     return (
         <div className={styles.formInputBox}>
             <input
-                ref={inputRef} // Привязываем ref
+                {...register(name, rules)}
                 type={type}
                 placeholder={placeholder}
                 className={`${styles.formInput} ${isError ? styles.formInputError : ""}`}

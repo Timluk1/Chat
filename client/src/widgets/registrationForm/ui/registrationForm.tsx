@@ -1,60 +1,56 @@
 import { Button } from "shared/ui/button";
 import { Link } from "react-router-dom";
-import styles from "./registrationForm.module.scss";
 import { useForm, SubmitHandler } from "react-hook-form";
-
-type Inputs = {
-    email: string;
-    password: string;
-    repeatPassword: string;
-};
+import { emailRules } from "shared/lib/formRules";
+import { FormInput } from "shared/ui/formInput";
+import { IFormInputs } from "shared/ui/formInput";
+import styles from "./registrationForm.module.scss";
 
 export function RegistrationForm() {
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<Inputs>();
+    } = useForm<IFormInputs>();
 
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const onSubmit: SubmitHandler<IFormInputs> = (data) => {
         console.log(data);
+        console.log(errors.email)
     };
-
+    const onChange = () => {
+        console.log(errors.email)
+    }
     return (
         <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
             <h1 className={styles.loginForm__title}>Создать аккаунт</h1>
-            {/* Изображение пользователя (аватарка)*/}
             <img src="" alt="" />
-            <input
-                className={styles.loginForm__input}
-                {...register("email", {
-                    required: "Email is required",
-                })}
-                defaultValue=""
-                type="email"
+            <input type="text" name="" id="" onChange={onChange}/>
+            <FormInput
+                register={register}
+                rules={emailRules}
+                name="email"
+                type="text"
                 placeholder="Введите email"
+                isError={Boolean(errors.email)}
+                errorText={errors.email && errors.email.message}
             />
-            <input
-                {...register("password", {
-                    required: "Password is required",
-                    pattern: {
-                        value: /^(?=.*[%$#&@]).{9,}$/,
-                        message:
-                            "Password must be at least 9 characters long and contain at least one special character (%$#&@)",
-                    },
-                })}
-                className={styles.loginForm__input}
-                defaultValue=""
+            <FormInput
+                register={register}
+                name="password"
                 type="password"
-                placeholder="Введите пароль"
+                placeholder="Введите email"
+                isError={true}
+                errorText={errors.password && errors.password.message}
             />
-            <input
-                {...register("repeatPassword")}
-                defaultValue=""
-                className={styles.loginForm__input}
+            <FormInput
+                register={register}
+                name="confirmPassword"
                 type="password"
-                placeholder="Повторите пароль"
+                placeholder="Введите email"
+                isError={true}
+                errorText={errors.confirmPassword && errors.confirmPassword.message}
             />
+
             <label className={styles.inputFile}>
                 <input type="file" name="file" accept="image/png, image/jpeg" />
                 <span className={styles.inputFileBtn}>
