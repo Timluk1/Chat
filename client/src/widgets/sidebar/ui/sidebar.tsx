@@ -8,9 +8,14 @@ export function Sidebar() {
         <div className={styles.sidebar}>
             <Search />
             <ul>
-                {chatList.map(({ id }) => (
+                {chatList.map(({ id, username, urlImg, lastSeen}) => (
                     <li key={id}>
-                        <ChatListItem />
+                        <ChatListItem
+                            chatId={id}
+                            urlImage={urlImg}
+                            lastSeen={lastSeen}
+                            username={username}
+                        />
                     </li>
                 ))}
             </ul>

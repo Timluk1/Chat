@@ -52,28 +52,28 @@ export const messagees: IMessage[] = [
         isUser: false
     },
     {
-        id: 1,
+        id: 8,
         text: "K, I'm on my way",
         time: "16.50",
         isUser: true,
         isRead: true
     },
     {
-        id: 1,
+        id: 9,
         text: "K, I'm on my way",
         time: "16.50",
         isUser: true,
         isRead: true
     }, 
     {
-        id: 1,
+        id: 10,
         text: "K, I'm on my way",
         time: "16.50",
         isUser: true,
         isRead: true
     },
     {
-        id: 1,
+        id: 11,
         text: "K, I'm on my way",
         time: "16.50",
         isUser: true,
