@@ -1,7 +1,7 @@
 import { Button } from "shared/ui/button";
 import { Link } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { emailRules } from "shared/lib/formRules";
+import { emailRules, passwordRules } from "shared/lib/formRules";
 import { FormInput } from "shared/ui/formInput";
 import { IFormInputs } from "shared/ui/formInput";
 import styles from "./registrationForm.module.scss";
@@ -11,23 +11,29 @@ export function RegistrationForm() {
         register,
         handleSubmit,
         formState: { errors },
+        watch,
+        trigger
     } = useForm<IFormInputs>();
 
+    const password = watch("password");
     const onSubmit: SubmitHandler<IFormInputs> = (data) => {
         console.log(data);
-        console.log(errors.email)
     };
-    const onChange = () => {
-        console.log(errors.email)
-    }
+
+    // Вызов триггера при уходе фокуса с инпута
+    const handleBlur = async (fieldName: keyof IFormInputs) => {
+        await trigger(fieldName);
+    };
+
     return (
         <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
             <h1 className={styles.loginForm__title}>Создать аккаунт</h1>
             <img src="" alt="" />
-            <input type="text" name="" id="" onChange={onChange}/>
+            
             <FormInput
                 register={register}
                 rules={emailRules}
+                onBlur={() => handleBlur("email")}
                 name="email"
                 type="text"
                 placeholder="Введите email"
@@ -36,18 +42,26 @@ export function RegistrationForm() {
             />
             <FormInput
                 register={register}
+                rules={passwordRules}
                 name="password"
                 type="password"
-                placeholder="Введите email"
-                isError={true}
+                onBlur={() => handleBlur("password")}
+                placeholder="Введите пароль"
+                isError={Boolean(errors.password)}
                 errorText={errors.password && errors.password.message}
             />
             <FormInput
                 register={register}
+                rules={{
+                    validate: (confirmPassword) => {
+                        return confirmPassword === password || "Пароли не совпадают";
+                    }
+                }}
                 name="confirmPassword"
                 type="password"
-                placeholder="Введите email"
-                isError={true}
+                onBlur={() => handleBlur("confirmPassword")}
+                placeholder="Подтвердите пароль"
+                isError={Boolean(errors.confirmPassword)}
                 errorText={errors.confirmPassword && errors.confirmPassword.message}
             />
 

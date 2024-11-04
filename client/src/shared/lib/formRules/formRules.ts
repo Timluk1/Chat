@@ -21,12 +21,8 @@ export const passwordRules = {
 
 export const confirmPasswordRules = {
     required: "Повтор пароля обязателен",
-    minLength: {
-        value: 9,
-        message: "Длинна пароля должна быть минимум 9 символов",
-    },
-    pattern: {
-        value: /[%$#&@]/,
-        message: "В пароле должен быть хотя бы один из символов %$#&@",
-    },
+    validate: (data) => {
+        console.log(data)
+        return true;
+    }
 }
