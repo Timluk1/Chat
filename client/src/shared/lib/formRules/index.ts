@@ -1,1 +1,1 @@
-export { emailRules, passwordRules, confirmPasswordRules } from "./formRules"
+export { emailRules, passwordRules } from "./formRules"

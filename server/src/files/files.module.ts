@@ -1,9 +1,14 @@
 import { Module } from "@nestjs/common";
+import { MulterModule } from "@nestjs/platform-express";
+import { FilesService } from "./files.service"
 
 @Module({
-    controllers: [],
-    providers: [],
-    imports: [], 
+    imports: [
+        MulterModule.register({
+            dest: "../../../files/usersImages",
+        }),
+    ],
+    exports: [FilesService],
+    providers: [FilesService], 
 })
-
-export class FileModule {}
+export class FilesModule {}

@@ -1,32 +1,43 @@
-import { UseFormRegister, RegisterOptions } from "react-hook-form";
-import { FocusEventHandler } from "react";
+import { UseFormRegister, RegisterOptions, FieldValues, Path } from "react-hook-form";
 import styles from "./formInput.module.scss";
 
-export interface IFormInputs {
+// Интерфейсы для полей форм
+export interface IFormRegistrInputs {
     email: string;
     password: string;
     confirmPassword: string;
-};
-
-interface FormInputProps {
-    // for react-hook-form
-    register: UseFormRegister<IFormInputs>
-    name: keyof IFormInputs
-    // for input element
-    type: string
-    placeholder: string
-    isError: boolean
-    onBlur: FocusEventHandler<HTMLInputElement>
-    errorText?: string
-    rules?: RegisterOptions<IFormInputs>;
 }
 
-export function FormInput({ register, name, type, placeholder, isError, errorText, rules, onBlur }: FormInputProps) {
+export interface IFormLoginInputs {
+    email: string;
+    password: string;
+}
+
+// Типизация пропсов для FormInput
+interface FormInputProps<T extends FieldValues> {
+    register: UseFormRegister<T>;
+    name: keyof T;
+    type: string;
+    placeholder: string;
+    isError: boolean;
+    errorText?: string;
+    rules?: RegisterOptions<T>;
+}
+
+// Компонент FormInput с обобщённой типизацией
+export function FormInput<T extends IFormRegistrInputs | IFormLoginInputs>({
+    register,
+    name,
+    type,
+    placeholder,
+    isError,
+    errorText,
+    rules,
+}: FormInputProps<T>) {
     return (
         <div className={styles.formInputBox}>
             <input
-                {...register(name, rules)}
-                onBlur={onBlur}
+                {...register(name as Path<T>, rules)}
                 type={type}
                 placeholder={placeholder}
                 className={`${styles.formInput} ${isError ? styles.formInputError : ""}`}

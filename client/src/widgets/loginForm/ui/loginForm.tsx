@@ -1,18 +1,42 @@
 import { Button } from "shared/ui/button";
 import { Link } from "react-router-dom";
+import { FormInput } from "shared/ui/formInput";
+import { emailRules } from "shared/lib/formRules";
+import { useForm } from "react-hook-form";
+import { IFormRegistrInputs } from "shared/ui/formInput";
 import styles from "./loginForm.module.scss"
 
 export function LoginForm() {
-    const handleLogin = (event: React.MouseEvent) => {
-        console.log("REGISTER")
-        event.preventDefault();
-    }
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<IFormRegistrInputs>({ mode: "onBlur" });
+    
+    const onSubmit = (data: IFormRegistrInputs) => {
+        console.log(data);
+    };
     return (
-        <form className={styles.loginForm}>
+        <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
             <h1 className={styles.loginForm__title}>Войти в аккаунт</h1>
-            <input className={styles.loginForm__input} type="email" placeholder="Введите email"/>
-            <input className={styles.loginForm__input} type="password" placeholder="Введите пароль"/>
-            <Button onClick={handleLogin}>
+            <FormInput
+                register={register}
+                rules={emailRules}
+                name="email"
+                type="text"
+                placeholder="Введите email"
+                isError={Boolean(errors.email)} 
+                errorText={errors.email?.message}
+            />
+            <FormInput
+                register={register}
+                name="password"
+                type="password"
+                placeholder="Введите пароль"
+                isError={true}
+                errorText={"Ошибка"}
+            />
+            <Button type="submit">
                 Войти
             </Button>
             <div className={styles.loginForm__navigation + " " + styles.navigation}>

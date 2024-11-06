@@ -1,3 +1,4 @@
+import { Providers } from "./providers";
 import styles from "./styles/App.module.scss";
 
 interface AppProps {
@@ -5,7 +6,13 @@ interface AppProps {
 }
 
 function App({ children }: AppProps) {
-    return <div className={styles.app}>{children}</div>;
+    return (
+        <Providers>
+            <div className={styles.app}>
+                {children}
+            </div>
+        </Providers>
+    )
 }
 
 export default App;

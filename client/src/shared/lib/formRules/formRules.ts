@@ -18,11 +18,3 @@ export const passwordRules = {
     },
     
 }
-
-export const confirmPasswordRules = {
-    required: "Повтор пароля обязателен",
-    validate: (data) => {
-        console.log(data)
-        return true;
-    }
-}
