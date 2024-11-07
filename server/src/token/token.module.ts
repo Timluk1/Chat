@@ -18,7 +18,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
         }),
         TypeOrmModule.forFeature([Token])
     ],
-    providers: [TokenService],  // Добавьте TokenService в providers
-    exports: [TokenService]     // Экспортируйте TokenService для других модулей
+    providers: [TokenService], 
+    exports: [TokenService]   
 })
 export class TokenModule {}

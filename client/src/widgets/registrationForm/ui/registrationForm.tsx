@@ -7,13 +7,10 @@ import { IFormRegistrInputs } from "shared/ui/formInput";
 import { InputImage } from "shared/ui/inputImage";
 import { useRef } from "react";
 import { useRegistrationMutation } from "features/auth/model/authApi";
-import { setAccessToken } from "features/auth/model/authSlice";
 import styles from "./registrationForm.module.scss";
-import { useAppDispatch } from "shared/lib/store/redux";
 
 export function RegistrationForm() {
     const inputImageRef = useRef<HTMLInputElement | null>(null);
-    const dispatch = useAppDispatch();
     const {
         register,
         handleSubmit,
@@ -34,10 +31,7 @@ export function RegistrationForm() {
                 image: inputImageRef.current.files[0],
             };
             // запрос на регистрацию
-            const result = await registration(requestData);
-            if (result.data) {
-                dispatch(setAccessToken(result.data.token));
-            }
+            await registration(requestData);
         } else {
             alert("Вы не добавили фото");
         }

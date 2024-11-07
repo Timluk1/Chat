@@ -4,11 +4,11 @@ import { AuthService } from "./auth.service";
 import { TokenModule } from "src/token/token.module";
 import { UserModule } from "src/user/user.module";
 import { AccessTokenStrategy } from "./strategies/accessToken.strategy";
-import { FilesModule } from "src/files/files.module";
+import { CloudImagesModule } from "src/cloudImages/cloudImages.module";
 
 @Module({
     controllers: [AuthController],
     providers: [AuthService, AccessTokenStrategy],
-    imports: [TokenModule, UserModule, FilesModule, AuthModule], 
+    imports: [TokenModule, UserModule, CloudImagesModule], 
 })
 export class AuthModule {}

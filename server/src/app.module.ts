@@ -8,6 +8,7 @@ import { Token } from "./token/entity/token.entity";
 import { Chat } from "./chat/enity/chat.enity";
 import { TokenModule } from "./token/token.module";
 import { ChatModule } from "./chat/chat.module";
+import { CloudImagesModule } from "./cloudImages/cloudImages.module";
 
 @Module({
   imports: [
@@ -25,7 +26,8 @@ import { ChatModule } from "./chat/chat.module";
     AuthModule,
     UserModule,
     TokenModule,
-    ChatModule
+    ChatModule,
+    CloudImagesModule
   ],
 })
 

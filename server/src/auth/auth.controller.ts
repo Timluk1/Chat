@@ -3,12 +3,14 @@ import { AuthService } from "./auth.service";
 import { AuthDto } from "./dto/auth.dto";
 import { UseInterceptors, UploadedFile } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { FilesService } from "src/files/files.service";
-import { Response } from 'express';
+import { CloudImagesService } from "src/cloudImages/cloudImages.service";
 
 @Controller("/api/auth")
 export class AuthController {
-    constructor(private authService: AuthService, private filesService: FilesService) {}
+    constructor(private authService: AuthService,
+                private cloudImagesService: CloudImagesService
+    ) {
+    }
 
     @Post("/registration")
     @UseInterceptors(FileInterceptor('userImage'))
@@ -16,11 +18,10 @@ export class AuthController {
         @UploadedFile() file: Express.Multer.File,
         @Body() data: AuthDto
     ) {
-//        const user = await this.authService.registration(data);
-        const fileName = await this.filesService.loadFile(file);
-        console.log(fileName)
+        const user = await this.authService.registration(data);
+        await this.cloudImagesService.uploadFile(file);
         return {
-            message: "Регистрация прошла успешно!"
-        }
+            accessToken: user.accessToken
+        };
     }
 }
