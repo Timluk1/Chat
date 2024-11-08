@@ -12,6 +12,9 @@ export class User {
     @Column()
     password: string;
 
+    @Column({ unique: true})
+    imgkey: string;
+
     @OneToOne(() => Token, token => token.user, { cascade: true })
     token: Token;
 }

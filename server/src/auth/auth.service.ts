@@ -11,13 +11,13 @@ export class AuthService {
         private tokenService: TokenService
     ) { }
 
-    async registration(authDto: AuthDto) {
+    async registration(authDto: AuthDto, key: string) {
         // получаем пароль
         const password = authDto.password;
         // хэшируем пароль
         const hashPassword = await bcrypt.hash(password, 5);
         // добавляем пользователя в бд и получаем данные о нем
-        const user = await this.userService.createUser({ ...authDto, password: hashPassword });
+        const user = await this.userService.createUser({ ...authDto, password: hashPassword, imgkey: key });
         const jwt = { email: user.email, id: user.id };
         // генерируем токены
         const [refreshToken, accessToken] = [this.tokenService.generateRefreshToken(jwt), this.tokenService.generateAccessToken(jwt)];

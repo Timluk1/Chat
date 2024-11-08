@@ -5,6 +5,9 @@ export class CreateUserDto {
   email: string;
 
   @IsString()
+  imgkey: string;
+
+  @IsString()
   password: string;
 }
 

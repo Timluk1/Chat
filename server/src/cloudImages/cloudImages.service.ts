@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { GetObjectCommand } from '@aws-sdk/client-s3';
@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 export class CloudImagesService {
     private client: S3Client;
     private bucketName: string;
-    
+
     constructor(
     ) {
         const s3_region = process.env.REGION_S3
@@ -30,32 +30,33 @@ export class CloudImagesService {
     }
 
     async uploadFile(file: Express.Multer.File) {
-            const key = `${uuidv4()}`;
-            const command = new PutObjectCommand({
-                Bucket: this.bucketName,
-                Key: key,
-                Body: file.buffer,
-                ContentType: file.mimetype,
-         
-                Metadata: {
-                  originalName: file.originalname,
-                },
-            });
+        const key = `${uuidv4()}`;
+        const command = new PutObjectCommand({
+            Bucket: this.bucketName,
+            Key: key,
+            Body: file.buffer,
+            ContentType: file.mimetype,
 
-            await this.client.send(command);
-            
-            const commandGetImage = new GetObjectCommand({
-                Bucket: this.bucketName,
-                Key: key,
-            });
+            Metadata: {
+                originalName: file.originalname,
+            },
+        });
 
-            const url = await getSignedUrl(this.client, commandGetImage, {
-                expiresIn: 60, // 60 seconds
-            });
-
-            return {
-                url
-            }
+        await this.client.send(command);
+        return key;
     }
-     
+
+    async getImageUrl(key: string) {
+        const commandGetImage = new GetObjectCommand({
+            Bucket: this.bucketName,
+            Key: key,
+        });
+
+        const url = await getSignedUrl(this.client, commandGetImage, {
+            expiresIn: 60 * 60, // 1 hour
+        });
+
+        return url;
+    }
+
 }
